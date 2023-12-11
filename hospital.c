@@ -7,7 +7,8 @@
 Patologia lista_patologias[5];
 
 // Função para inicializar a estrutura do hospital
-void inicializar_hospital(Hospital *hospital) {
+void inicializar_hospital(Hospital *hospital) 
+{
     // Inicializa a lista de patologias
     inicializar_patologias();
     
@@ -18,7 +19,8 @@ void inicializar_hospital(Hospital *hospital) {
 }
 
 // Função para inicializar a lista de patologias com valores predefinidos
-void inicializar_patologias() {
+void inicializar_patologias() 
+{
     strcpy(lista_patologias[0].nome, "Saúde Normal");
     lista_patologias[0].probabilidade_ocorrencia = 0.3;
     lista_patologias[0].nivel_gravidade = 1;
@@ -41,7 +43,8 @@ void inicializar_patologias() {
 }
 
 // Função para lidar com a chegada de pacientes
-void lidar_com_chegada_paciente(Hospital *hospital, Log *log) {
+void lidar_com_chegada_paciente(Hospital *hospital, Log *log) 
+{
     // Simula a chegada de pacientes com uma probabilidade de 20%
     if (rand() % 100 < 20) {
         // Cria um novo paciente e preenche os detalhes
@@ -63,12 +66,11 @@ void lidar_com_chegada_paciente(Hospital *hospital, Log *log) {
 }
 
 // Função para lidar com a realização de exames
-void lidar_com_exames(Hospital *hospital, Log *log) {
+void lidar_com_exames(Hospital *hospital, Log *log) 
+{
     // Simula a realização de exames
-    for (int i = 0; i < hospital->count_exames; ++i) {
-        // Lógica para verificar a disponibilidade de aparelhos, calcular a duração do exame, etc.
-        // ...
-
+    for (int i = 0; i < hospital->count_exames; ++i) 
+    {
         // Simula a conclusão do exame
         Exame exame_concluido = hospital->exames[i];
         hospital->count_exames--;
@@ -84,13 +86,15 @@ void lidar_com_exames(Hospital *hospital, Log *log) {
 }
 
 // Função para lidar com a realização de laudos
-void lidar_com_laudo(Hospital *hospital, Log *log) {
+void lidar_com_laudo(Hospital *hospital, Log *log) 
+{
     // Simula a realização de laudos
     const int radiologistas_disponiveis = 3;
     int radiologistas_alocados = 0;
 
     // Itera sobre os exames na fila de laudo
-    for (int i = 0; i < hospital->count_laudos && radiologistas_alocados < radiologistas_disponiveis; ++i) {
+    for (int i = 0; i < hospital->count_laudos && radiologistas_alocados < radiologistas_disponiveis; ++i) 
+    {
         // Simula a conclusão do laudo
         Exame laudo_concluido = hospital->laudos[i];
         hospital->count_laudos--;
@@ -111,12 +115,14 @@ void lidar_com_laudo(Hospital *hospital, Log *log) {
 }
 
 // Função para simular o tempo (unidades de 10 em 10)
-void simular_tempo(Hospital *hospital, Log *log) {
+void simular_tempo(Hospital *hospital, Log *log) 
+{
     // Inicializa a semente para geração de números pseudoaleatórios
     srand(time(NULL));
 
     // Simula o tempo até 43200 unidades de tempo
-    for (int tempo = 0; tempo < 43200; tempo += 10) {
+    for (int tempo = 0; tempo < 43200; tempo += 10) 
+    {
         // Chama as funções para lidar com a chegada de paciente, exames, laudos, e relatar métricas a cada 10 unidades de tempo
         lidar_com_chegada_paciente(hospital, log);
         lidar_com_exames(hospital, log);
@@ -129,7 +135,8 @@ void simular_tempo(Hospital *hospital, Log *log) {
 }
 
 // Função para relatar métricas
-void relatar_metricas(const Hospital *hospital, Log *log) {
+void relatar_metricas(const Hospital *hospital, Log *log) 
+{
     // Calcula e relata métricas a cada 10 unidades de tempo
     float tempo_medio_laudo = calcular_tempo_medio_laudo(hospital);
     float tempo_medio_laudo_patologia = calcular_tempo_medio_laudo_por_patologia(hospital, SAUDE_NORMAL);  // Exemplo com Saúde Normal
@@ -149,16 +156,17 @@ void relatar_metricas(const Hospital *hospital, Log *log) {
 }
 
 // Função para registrar métricas no log
-void registrar_metricas_log(const Hospital *hospital, Log *log, int limite_tempo) {
-    // Implemente a lógica para registrar as métricas no log
-    // ...
+void registrar_metricas_log(const Hospital *hospital, Log *log, int limite_tempo) 
+{
 }
 
 // Função para calcular o tempo médio de laudo
-float calcular_tempo_medio_laudo(const Hospital *hospital) {
+float calcular_tempo_medio_laudo(const Hospital *hospital) 
+{
     float tempo_total = 0.0;
 
-    for (int i = 0; i < hospital->count_laudos; ++i) {
+    for (int i = 0; i < hospital->count_laudos; ++i) 
+    {
         tempo_total += hospital->laudos[i].timestamp - hospital->laudos[i].timestamp;
     }
 
@@ -166,12 +174,15 @@ float calcular_tempo_medio_laudo(const Hospital *hospital) {
 }
 
 // Função para calcular o tempo médio de laudo por patologia
-float calcular_tempo_medio_laudo_por_patologia(const Hospital *hospital, PatologiaTipo patologia) {
+float calcular_tempo_medio_laudo_por_patologia(const Hospital *hospital, PatologiaTipo patologia) 
+{
     float tempo_total = 0.0;
     int count_patologia = 0;
 
-    for (int i = 0; i < hospital->count_laudos; ++i) {
-        if (hospital->laudos[i].condicao == patologia) {
+    for (int i = 0; i < hospital->count_laudos; ++i) 
+    {
+        if (hospital->laudos[i].condicao == patologia) 
+        {
             tempo_total += hospital->laudos[i].timestamp - hospital->laudos[i].timestamp;
             count_patologia++;
         }
@@ -181,11 +192,14 @@ float calcular_tempo_medio_laudo_por_patologia(const Hospital *hospital, Patolog
 }
 
 // Função para contar exames realizados após o limite de tempo estabelecido
-int contar_exames_apos_limite_tempo(const Hospital *hospital, int limite_tempo) {
+int contar_exames_apos_limite_tempo(const Hospital *hospital, int limite_tempo) 
+{
     int count_exames_apos_limite = 0;
 
-    for (int i = 0; i < hospital->count_laudos; ++i) {
-        if (hospital->laudos[i].timestamp > limite_tempo) {
+    for (int i = 0; i < hospital->count_laudos; ++i) 
+    {
+        if (hospital->laudos[i].timestamp > limite_tempo) 
+        {
             count_exames_apos_limite++;
         }
     }
