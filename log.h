@@ -6,7 +6,7 @@
 // Estrutura para armazenar informações sobre um evento de log
 typedef struct {
     char mensagem[256];  // Mensagem do evento
-    time_t timestamp;     // Timestamp do evento (tempo em segundos desde 1970-01-01 00:00:00 UTC)
+    time_t timestamp;     // Timestamp do evento 
 } EventoLog;
 
 // Estrutura para representar um log que armazena uma lista de eventos
